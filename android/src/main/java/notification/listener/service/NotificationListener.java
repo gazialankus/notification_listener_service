@@ -81,7 +81,14 @@ public class NotificationListener extends NotificationListenerService {
                 bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 intent.putExtra(NotificationConstants.EXTRAS_PICTURE, stream.toByteArray());
             }
+
         }
+        intent.putExtra(NotificationConstants.IS_CLEARABLE, notification.isClearable());
+        if (Build.VERSION.SDK_INT >= VERSION_CODES.N) {
+            intent.putExtra(NotificationConstants.IS_GROUP, notification.isGroup());
+        }
+        intent.putExtra(NotificationConstants.PRIORITY, notification.getNotification().priority);
+
         sendBroadcast(intent);
     }
 

@@ -51,6 +51,10 @@ class ServiceNotificationEvent {
   /// the content of the notification
   String? content;
 
+  bool? isClearable;
+  bool? isGroup;
+  int? priority;
+
   ServiceNotificationEvent({
     this.id,
     this.canReply,
@@ -62,6 +66,9 @@ class ServiceNotificationEvent {
     this.appIcon,
     this.largeIcon,
     this.content,
+    this.isClearable,
+    this.isGroup,
+    this.priority,
   });
 
   ServiceNotificationEvent.fromMap(Map<dynamic, dynamic> map) {
@@ -75,6 +82,9 @@ class ServiceNotificationEvent {
     appIcon = map['appIcon'];
     largeIcon = map['largeIcon'];
     content = map['content'];
+    isClearable = map['isClearable'];
+    isGroup = map['isGroup'];
+    priority = map['priority'];
   }
 
   /// send a direct message reply to the incoming notification
@@ -101,6 +111,9 @@ class ServiceNotificationEvent {
       content: $content
       hasRemoved: $hasRemoved
       haveExtraPicture: $haveExtraPicture
+      isClearable: $isClearable
+      isGroup: $isGroup
+      priority: $priority
       ''';
   }
 }

@@ -2,6 +2,7 @@ package notification.listener.service;
 
 import static notification.listener.service.NotificationConstants.*;
 
+import android.app.Notification;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -34,6 +35,9 @@ public class NotificationReceiver extends BroadcastReceiver {
         boolean hasRemoved = intent.getBooleanExtra(IS_REMOVED, false);
         boolean canReply = intent.getBooleanExtra(CAN_REPLY, false);
         int id = intent.getIntExtra(ID, -1);
+        boolean isClearable = intent.getBooleanExtra(IS_CLEARABLE, false);
+        boolean isGroup = intent.getBooleanExtra(IS_GROUP, false);
+        int priority = intent.getIntExtra(PRIORITY, Notification.PRIORITY_DEFAULT);
 
 
         HashMap<String, Object> data = new HashMap<>();
@@ -47,6 +51,9 @@ public class NotificationReceiver extends BroadcastReceiver {
         data.put("largeIcon", largeIcon);
         data.put("hasRemoved", hasRemoved);
         data.put("canReply", canReply);
+        data.put("isClearable", isClearable);
+        data.put("isGroup", isGroup);
+        data.put("priority", priority);
 
         eventSink.success(data);
     }
