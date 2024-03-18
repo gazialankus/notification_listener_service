@@ -38,6 +38,7 @@ public class NotificationReceiver extends BroadcastReceiver {
         boolean isClearable = intent.getBooleanExtra(IS_CLEARABLE, false);
         boolean isGroup = intent.getBooleanExtra(IS_GROUP, false);
         int priority = intent.getIntExtra(PRIORITY, Notification.PRIORITY_DEFAULT);
+        int flags = intent.getIntExtra(FLAGS, -1);
 
 
         HashMap<String, Object> data = new HashMap<>();
@@ -54,6 +55,7 @@ public class NotificationReceiver extends BroadcastReceiver {
         data.put("isClearable", isClearable);
         data.put("isGroup", isGroup);
         data.put("priority", priority);
+        data.put("flags", flags);
 
         eventSink.success(data);
     }

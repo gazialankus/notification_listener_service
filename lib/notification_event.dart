@@ -54,6 +54,7 @@ class ServiceNotificationEvent {
   bool? isClearable;
   bool? isGroup;
   int? priority;
+  int? flags;
 
   ServiceNotificationEvent({
     this.id,
@@ -69,6 +70,7 @@ class ServiceNotificationEvent {
     this.isClearable,
     this.isGroup,
     this.priority,
+    this.flags,
   });
 
   ServiceNotificationEvent.fromMap(Map<dynamic, dynamic> map) {
@@ -85,6 +87,7 @@ class ServiceNotificationEvent {
     isClearable = map['isClearable'];
     isGroup = map['isGroup'];
     priority = map['priority'];
+    flags = map['flags'];
   }
 
   /// send a direct message reply to the incoming notification
@@ -114,6 +117,7 @@ class ServiceNotificationEvent {
       isClearable: $isClearable
       isGroup: $isGroup
       priority: $priority
+      flags: $flags
       ''';
   }
 }

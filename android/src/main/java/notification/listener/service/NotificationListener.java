@@ -84,9 +84,9 @@ public class NotificationListener extends NotificationListenerService {
 
         }
         intent.putExtra(NotificationConstants.IS_CLEARABLE, notification.isClearable());
-        if (Build.VERSION.SDK_INT >= VERSION_CODES.N) {
-            intent.putExtra(NotificationConstants.IS_GROUP, notification.isGroup());
-        }
+        int flags = notification.getNotification().flags;
+        intent.putExtra(NotificationConstants.FLAGS, flags);
+        intent.putExtra(NotificationConstants.IS_GROUP, (flags & 512) != 0);
         intent.putExtra(NotificationConstants.PRIORITY, notification.getNotification().priority);
 
         sendBroadcast(intent);
