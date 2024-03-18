@@ -15,5 +15,5 @@ public final class NotificationConstants {
     public static String IS_CLEARABLE = "is_clearable";
     public static String IS_GROUP = "is_group";
     public static String PRIORITY = "priority";
-    public static String FLAGS = "flags";
+    public static String FLAGS = "val_flags";
 }
