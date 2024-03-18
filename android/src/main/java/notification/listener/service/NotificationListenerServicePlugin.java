@@ -34,9 +34,11 @@ public class NotificationListenerServicePlugin implements FlutterPlugin, Activit
 
     private static final String CHANNEL_TAG = "x-slayer/notifications_channel";
     private static final String EVENT_TAG = "x-slayer/notifications_event";
+    private static final String MEDIA_EVENT_TAG = "x-slayer/media_event";
 
     private MethodChannel channel;
     private EventChannel eventChannel;
+    private EventChannel mediaEventChannel;
     private NotificationReceiver notificationReceiver;
     private Context context;
     private Activity mActivity;
@@ -51,6 +53,8 @@ public class NotificationListenerServicePlugin implements FlutterPlugin, Activit
         channel.setMethodCallHandler(this);
         eventChannel = new EventChannel(flutterPluginBinding.getBinaryMessenger(), EVENT_TAG);
         eventChannel.setStreamHandler(this);
+        mediaEventChannel = new EventChannel(flutterPluginBinding.getBinaryMessenger(), MEDIA_EVENT_TAG);
+        mediaEventChannel.setStreamHandler(new MediaEventHandler(context));
     }
 
     @Override
@@ -85,6 +89,7 @@ public class NotificationListenerServicePlugin implements FlutterPlugin, Activit
     public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
         channel.setMethodCallHandler(null);
         eventChannel.setStreamHandler(null);
+        mediaEventChannel.setStreamHandler(null);
     }
 
     @Override

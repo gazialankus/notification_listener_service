@@ -4,10 +4,13 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:notification_listener_service/notification_event.dart';
+import 'package:notification_listener_service/track_info.dart';
 
 const MethodChannel methodeChannel =
     MethodChannel('x-slayer/notifications_channel');
 const EventChannel _eventChannel = EventChannel('x-slayer/notifications_event');
+const EventChannel _mediaEventChannel = EventChannel('x-slayer/media_event');
+Stream<TrackInfo>? _mediaStream;
 Stream<ServiceNotificationEvent>? _stream;
 
 class NotificationListenerService {
@@ -23,6 +26,16 @@ class NotificationListenerService {
       return _stream!;
     }
     throw Exception("Notifications API exclusively available on Android!");
+  }
+
+  static Stream<TrackInfo> get mediaStream {
+    if (Platform.isAndroid) {
+      _mediaStream ??= _mediaEventChannel
+          .receiveBroadcastStream()
+          .map<TrackInfo>((event) => TrackInfo.fromJson(event));
+      return _mediaStream!;
+    }
+    throw Exception("Media API exclusively available on Android!");
   }
 
   /// request notification permission
