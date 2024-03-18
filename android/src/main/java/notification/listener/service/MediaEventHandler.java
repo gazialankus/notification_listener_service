@@ -22,7 +22,7 @@ public class MediaEventHandler implements EventChannel.StreamHandler {
         intentFilter.addAction(MediaConstants.INTENT);
         mediaEventReceiver = new MediaEventReceiver(events);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            context.registerReceiver(mediaEventReceiver, intentFilter, Context.RECEIVER_EXPORTED);
+            context.registerReceiver(mediaEventReceiver, intentFilter, Context.RECEIVER_NOT_EXPORTED);
         } else {
             context.registerReceiver(mediaEventReceiver, intentFilter);
         }
