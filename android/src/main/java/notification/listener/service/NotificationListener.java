@@ -85,6 +85,7 @@ public class NotificationListener extends NotificationListenerService {
         }
         intent.putExtra(NotificationConstants.IS_CLEARABLE, notification.isClearable());
         int flags = notification.getNotification().flags;
+        Log.d("FLAGS", "Flags is : " + flags);
         intent.putExtra(NotificationConstants.FLAGS, flags);
         intent.putExtra(NotificationConstants.IS_GROUP, (flags & 512) != 0);
         intent.putExtra(NotificationConstants.PRIORITY, notification.getNotification().priority);
