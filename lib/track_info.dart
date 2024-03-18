@@ -21,17 +21,17 @@ class TrackInfo {
     required this.volumePercent,
   });
 
-  factory TrackInfo.fromJson(Map<String, dynamic> json) {
+  factory TrackInfo.fromMap(Map<dynamic, dynamic> map) {
     return TrackInfo(
-      id: json['id'],
-      title: json['title'],
-      album: json['album'],
-      artist: json['artist'],
-      source: json['source'],
-      duration: Duration(milliseconds: json['duration']),
-      position: Duration(milliseconds: json['position']),
-      state: json['state'],
-      volumePercent: json['volumePercent'],
+      id: map['id'],
+      title: map['title'],
+      album: map['album'],
+      artist: map['artist'],
+      source: map['source'],
+      duration: Duration(milliseconds: map['duration']),
+      position: Duration(milliseconds: map['position']),
+      state: map['state'],
+      volumePercent: map['volumePercent'],
     );
   }
 

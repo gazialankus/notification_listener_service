@@ -32,7 +32,7 @@ class NotificationListenerService {
     if (Platform.isAndroid) {
       _mediaStream ??= _mediaEventChannel
           .receiveBroadcastStream()
-          .map<TrackInfo>((event) => TrackInfo.fromJson(event));
+          .map<TrackInfo>((event) => TrackInfo.fromMap(event));
       return _mediaStream!;
     }
     throw Exception("Media API exclusively available on Android!");
