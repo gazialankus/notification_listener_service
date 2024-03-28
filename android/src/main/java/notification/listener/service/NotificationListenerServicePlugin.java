@@ -18,12 +18,14 @@ import androidx.annotation.RequiresApi;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.embedding.engine.plugins.activity.ActivityAware;
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding;
+import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.EventChannel;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry;
+import io.flutter.plugin.common.StandardMethodCodec;
 import notification.listener.service.models.Action;
 import notification.listener.service.models.ActionCache;
 import android.annotation.SuppressLint;
@@ -48,8 +50,11 @@ public class NotificationListenerServicePlugin implements FlutterPlugin, Activit
 
     @Override
     public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
+        BinaryMessenger.TaskQueue taskQueue = flutterPluginBinding.getBinaryMessenger().makeBackgroundTaskQueue();
+
         context = flutterPluginBinding.getApplicationContext();
-        channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), CHANNEL_TAG);
+        channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), CHANNEL_TAG,
+                StandardMethodCodec.INSTANCE, taskQueue);
         channel.setMethodCallHandler(this);
         eventChannel = new EventChannel(flutterPluginBinding.getBinaryMessenger(), EVENT_TAG);
         eventChannel.setStreamHandler(this);
