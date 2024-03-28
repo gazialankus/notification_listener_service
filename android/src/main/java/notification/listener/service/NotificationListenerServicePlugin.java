@@ -51,14 +51,17 @@ public class NotificationListenerServicePlugin implements FlutterPlugin, Activit
     @Override
     public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
         BinaryMessenger.TaskQueue taskQueue = flutterPluginBinding.getBinaryMessenger().makeBackgroundTaskQueue();
+        Log.d("NotificationPlugin", "All channels use taskqueue");
 
         context = flutterPluginBinding.getApplicationContext();
         channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), CHANNEL_TAG,
                 StandardMethodCodec.INSTANCE, taskQueue);
         channel.setMethodCallHandler(this);
-        eventChannel = new EventChannel(flutterPluginBinding.getBinaryMessenger(), EVENT_TAG);
+        eventChannel = new EventChannel(flutterPluginBinding.getBinaryMessenger(), EVENT_TAG,
+                StandardMethodCodec.INSTANCE, taskQueue);
         eventChannel.setStreamHandler(this);
-        mediaEventChannel = new EventChannel(flutterPluginBinding.getBinaryMessenger(), MEDIA_EVENT_TAG);
+        mediaEventChannel = new EventChannel(flutterPluginBinding.getBinaryMessenger(), MEDIA_EVENT_TAG,
+                StandardMethodCodec.INSTANCE, taskQueue);
         mediaEventChannel.setStreamHandler(new MediaEventHandler(context));
     }
 
